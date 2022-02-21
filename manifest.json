@@ -1,10 +1,10 @@
 {
 	"name":"CrimmyCards",
 	"author_name":"nwilki",
-    "version_number":"0.1.0",
+    "version_number":"0.2.0",
 	"website_url":"https://github.com/Cr1ms0nC0de/CrimmyCards",
 	"displayName":"Crimmy's Cards",
-	"description":"Adds some cards",
+	"description":"Adds 5 cards",
 	"dependencies": [
 	    "willis81808-UnboundLib-2.10.2",
 		"willis81808-MMHook-1.0.0",

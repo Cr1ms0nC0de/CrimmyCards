@@ -36,6 +36,9 @@ namespace CrimmyCards
             instance = this;
             CustomCard.BuildCard<Pufferfish>();
             CustomCard.BuildCard<Carrot>();
+            CustomCard.BuildCard<Block_effect_I_guess>();
+            CustomCard.BuildCard<Gun_Effect_I_guess>();
+            CustomCard.BuildCard<Player_effect_I_guess>();
         }
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("bundle", typeof(CrimmyCards).Assembly);
 
