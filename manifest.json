@@ -1,0 +1,15 @@
+{
+	"name":"CrimmyCards",
+	"author_name":"nwilki",
+    "version_number":"0.1.0",
+	"website_url":"https://github.com/Cr1ms0nC0de/CrimmyCards",
+	"displayName":"Crimmy's Cards",
+	"description":"Adds some cards",
+	"dependencies": [
+	    "willis81808-UnboundLib-2.10.2",
+		"willis81808-MMHook-1.0.0",
+		"BepInEx-BepInExPack_ROUNDS-5.4.1100",
+		"Pykess-CardChoiceSpawnUniqueCardPatch-0.1.7",
+		"Pykess-ModdingUtils-0.2.6"
+	]
+}
