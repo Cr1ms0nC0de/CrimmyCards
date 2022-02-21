@@ -39,8 +39,8 @@ namespace CrimmyCards
         }
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("bundle", typeof(CrimmyCards).Assembly);
 
-        public static GameObject CardNameArt = Bundle.LoadAsset<GameObject>("C_Pufferfish");
-        public static GameObject CardNameArt2 = Bundle.LoadAsset<GameObject>("C_Carrot");
+        public static GameObject PufferfishArt = Bundle.LoadAsset<GameObject>("C_Pufferfish");
+        public static GameObject CarrotArt = Bundle.LoadAsset<GameObject>("C_Carrot");
 
     }
 }

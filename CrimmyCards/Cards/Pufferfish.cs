@@ -40,7 +40,7 @@ namespace CrimmyCards.Cards
         }
         protected override GameObject GetCardArt()
         {
-            return CrimmyCards.CardNameArt;
+            return CrimmyCards.PufferfishArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {

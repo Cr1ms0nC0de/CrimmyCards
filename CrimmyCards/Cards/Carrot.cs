@@ -35,7 +35,7 @@ namespace CrimmyCards.Cards
         }
         protected override GameObject GetCardArt()
         {
-            return CrimmyCards.CardNameArt2;
+            return CrimmyCards.CarrotArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {
