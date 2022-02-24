@@ -1,12 +1,17 @@
 # CrimmyCards
- This mod so far only has 2 cards, made by nwilki
+ This mod so far only has 6 cards, made by nwilki
 
-- Pufferfish (Rare)
 - Carrot (Common)
 - Player effect I guess (Common)
 - Gun effect I guess (Common)
 - Block effect I guess (Common)
+- Saw Block (Uncommon)
+- Pufferfish (Rare)
 
+
+----
+## v 0.3.0
+- Added Saw block, updated README to have cards sorted by rarity
 ----
 ## v 0.2.2
 - Changed Pufferfish to apply stats when damaged, excluding health, increased size to 50%

@@ -39,6 +39,7 @@ namespace CrimmyCards
             CustomCard.BuildCard<Block_effect_I_guess>();
             CustomCard.BuildCard<Gun_Effect_I_guess>();
             CustomCard.BuildCard<Player_effect_I_guess>();
+            CustomCard.BuildCard<Sawblock>();
         }
         private static readonly AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("bundle", typeof(CrimmyCards).Assembly);
 
