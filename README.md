@@ -8,6 +8,9 @@
 - Block effect I guess (Common)
 
 ----
+## v 0.2.2
+- Changed Pufferfish to apply stats when damaged, excluding health, increased size to 50%
+----
 ## v 0.2.1
 - Improved Carrot art and animation
 ----

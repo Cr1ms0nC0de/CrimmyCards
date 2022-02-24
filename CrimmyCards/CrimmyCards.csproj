@@ -19,11 +19,17 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="BepInEx.Harmony">
+      <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\core\BepInEx.Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="CardChoiceSpawnUniqueCardPatch">
       <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\plugins\Pykess-CardChoiceSpawnUniqueCardPatch\CardChoiceSpawnUniqueCardPatch.dll</HintPath>
     </Reference>
     <Reference Include="ModdingUtils">
       <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\plugins\Pykess-ModdingUtils\ModdingUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="TemporaryStatsPatch">
+      <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\plugins\TemporaryStatsPatch\TemporaryStatsPatch.dll</HintPath>
     </Reference>
     <Reference Include="UnboundLib">
       <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\plugins\willis81808-UnboundLib\UnboundLib.dll</HintPath>
