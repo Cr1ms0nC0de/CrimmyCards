@@ -91,7 +91,7 @@ namespace CrimmyCards.Cards
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return CrimmyCards.SawBlockArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {

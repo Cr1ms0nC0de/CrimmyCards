@@ -8,7 +8,12 @@
 - Saw Block (Uncommon)
 - Pufferfish (Rare)
 
-
+----
+## v 0.3.2
+- Added card art and animation for Saw Block, made all animations more smooth
+----
+## v 0.3.1
+- Buffed and fixed Carrot
 ----
 ## v 0.3.0
 - Added Saw block, updated README to have cards sorted by rarity
