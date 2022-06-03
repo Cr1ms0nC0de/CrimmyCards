@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.Events;
 
 namespace CrimmyCards.MonoBehaviours
 {

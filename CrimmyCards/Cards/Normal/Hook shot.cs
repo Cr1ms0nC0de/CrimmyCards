@@ -4,52 +4,63 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnboundLib;
-using BepInEx;
 using UnboundLib.Cards;
 using UnityEngine;
-using ModdingUtils.MonoBehaviours;
-using TemporaryStatsPatch;
 using CrimmyCards.MonoBehaviours;
+using Photon.Pun;
+using UnityEngine.Events;
+using CrimmyCards.Extensions;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 namespace CrimmyCards.Cards
 {
-    class Pufferfish : CustomCard
+    public class Hook_shot : CustomCard
     {
-        //private static MonoBehaviours.Puff puff_effect = new Puff();
+
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            statModifiers.health = 3.0f;
+            gun.knockback = -5.0f;
+            gun.ammo = 7;
+            gun.gravity = 0.5f;
+            gun.numberOfProjectiles = 4;
+            gun.reloadTimeAdd = 0.25f;
+            gun.projectileSpeed = 1.5f;
+            gun.damage = 0.7f;
+            gun.spread = .2f;
+            gun.evenSpread = .5f;
+            gun.destroyBulletAfter = 0.25f;
+            //gun.timeBetweenBullets = 0.25f;
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            HealthBasedEffect effect = player.gameObject.AddComponent<HealthBasedEffect>();
+            //var mono = player.gameObject.AddComponent<Shoot_Block_Mono>();
+            
+            characterStats.GetAdditionalData().recoil -= 5.0f;
+            //Edits values on player when card is selected
 
-            effect.characterStatModifiersModifier.sizeMultiplier_mult = 1.2f;
-            effect.characterStatModifiersModifier.gravity_mult = 1.5f;
-            effect.blockModifier.additionalBlocks_add = 1;
-            effect.blockModifier.cdAdd_add -= 0.25f;
-            effect.SetPercThresholdMax(0.999f);
-            //puff_effect = player.gameObject.AddComponent<MonoBehaviours.Puff>();
+            //characterStats.GetAdditionalData().recoil = -100;
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //Destroy(puff_effect);
+            //Run when the card is removed from the player
+            //var mono = player.gameObject.AddComponent<Shoot_Block_Mono>();
+            //UnityEngine.GameObject.Destroy(mono);
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
         }
 
         protected override string GetTitle()
         {
-            return "Pufferfish";
+            return "Hook shot";
         }
         protected override string GetDescription()
         {
-            return "You puff up when damaged. Stats only apply when damaged, excluding health";
+            return "A shotgun that is also somehow a grappling hook";
         }
         protected override GameObject GetCardArt()
         {
-            return CrimmyCards.PufferfishArt;
+            return null;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -62,51 +73,57 @@ namespace CrimmyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Health",
-                    amount = "+200%",
+                    stat = "Ammo",
+                    amount = "+7",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Blocks",
-                    amount = "+1",
+                    stat = "Bullets",
+                    amount = "+4",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Block Cooldown",
-                    amount = "-0.25s",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Size",
+                    stat = "Bullet Speed",
                     amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
-                    positive = false,
-                    stat = "Gravity",
-                    amount = "+20%",
+                    positive = true,
+                    stat = "knockback",
+                    amount = "-400%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "recoil",
+                    amount = "-400%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Movement Speed",
-                    amount = "-20%",
+                    stat = "Damage",
+                    amount = "-30%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "reload time",
+                    amount = "+0.25s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-                
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.TechWhite;
         }
         public override string GetModName()
         {

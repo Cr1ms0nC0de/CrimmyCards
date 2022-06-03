@@ -49,6 +49,9 @@
     <Reference Include="PhotonWebSocket">
       <HintPath>E:\SteamLibrary\steamapps\common\ROUNDS\Rounds_Data\Managed\PhotonWebSocket.dll</HintPath>
     </Reference>
+    <Reference Include="RarityLib">
+      <HintPath>..\..\..\Desktop\Root-RarityLib-1.0.8\RarityLib.dll</HintPath>
+    </Reference>
     <Reference Include="TemporaryStatsPatch">
       <HintPath>..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\My cards\BepInEx\plugins\TemporaryStatsPatch\TemporaryStatsPatch.dll</HintPath>
     </Reference>
@@ -67,6 +70,13 @@
     <Reference Include="UnityEngine.Physics2DModule">
       <HintPath>E:\SteamLibrary\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MonoBehaviours\Normal\" />
+    <Folder Include="MonoBehaviours\Working on\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.8.23" />
   </ItemGroup>
 </Project>
 

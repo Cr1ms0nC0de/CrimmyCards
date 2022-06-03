@@ -10,29 +10,29 @@ using CrimmyCards.MonoBehaviours;
 using Photon.Pun;
 using UnityEngine.Events;
 using CrimmyCards.Extensions;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+
 
 namespace CrimmyCards.Cards
 {
-    public class Sawblock : CustomCard
+    class Bounce : CustomCard
     {
-        int sawCount = 0;
         private GameObject sawObj;
-        Boolean stopforce = false;
+        System.Random rnd = new System.Random();
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.allowMultiple = false;
-            block.forceToAddUp = 10;
-            
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            block.cdAdd = 0.01f;
+            
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            player.gameObject.AddComponent<Sawblock_Mono>();
-            sawObj = new GameObject("saw");
-            sawObj.AddComponent<CrimmyCardsMonoBehaviour>();
-            var jump = sawObj.AddComponent<PlayerDoJump>();
-            jump.multiplier = 1;
+            //Edits values on player when card is selected
+            ObjectsToSpawn item = ((GameObject)Resources.Load("0 cards/Mayhem")).GetComponent<Gun>().objectsToSpawn[0];
+            List<ObjectsToSpawn> list = gun.objectsToSpawn.ToList<ObjectsToSpawn>();
+            list.Add(item);
+            gun.objectsToSpawn = list.ToArray();
             var trigger = sawObj.AddComponent<BlockTrigger>();
             trigger.blockRechargeEvent = new UnityEvent();
             trigger.successfulBlockEvent = new UnityEvent();
@@ -42,38 +42,20 @@ namespace CrimmyCards.Cards
             trigger.triggerEvent = new UnityEvent();
             trigger.triggerEvent.AddListener(() =>
             {
-                if (PhotonNetwork.IsMasterClient && sawCount < 1)
+                if (PhotonNetwork.IsMasterClient)
                 {
+                    int x = rnd.Next(-100, 100);
+                    int y = rnd.Next(-100, 100);
+                    player.transform.AddXPosition(x);
+                    player.transform.AddYPosition(y);
+                    //PhotonNetwork.Instantiate("4 map objects/MapObject_Saw_Stat", player.transform.position, Quaternion.identity);
+                    //var scale = jump.transform.parent.transform.localScale;
 
-                    PhotonNetwork.Instantiate("4 map objects/MapObject_Saw_Stat", player.transform.position, Quaternion.identity);
-                    var scale = jump.transform.parent.transform.localScale;
-                    jump.ExecuteAfterSeconds(0.08f, () =>
-                    {
-                        var parent = jump.transform.parent;
-                        parent.GetComponent<PhotonView>().RPC("RPCA_FixBox", RpcTarget.All);
-                        parent.GetComponent<PhotonView>().RPC("RPCA_BigBox", RpcTarget.All);
-                    });
-                    jump.ExecuteAfterSeconds(0.15f, () =>
-                    {
-                        var parent = jump.transform.parent;
-                        parent.GetComponent<PhotonView>().RPC("RPCA_FixBox", RpcTarget.All);
-                    });
-
-                    sawCount++;
-                }
-                else if (sawCount == 1 && stopforce == false)
-                {
-                    block.forceToAddUp = block.forceToAddUp - 10;
-                    stopforce = true;
                 }
                 // var rem = box.AddComponent<RemoveAfterSeconds>();
                 // rem.seconds = 4;
 
             });
-            sawObj.transform.SetParent(player.gameObject.transform);
-
-            //Edits values on player when card is selected
-            UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -83,19 +65,19 @@ namespace CrimmyCards.Cards
 
         protected override string GetTitle()
         {
-            return "saw block";
+            return "Bounce";
         }
         protected override string GetDescription()
         {
-            return "You spawn a BIG saw when you block, max 1";
+            return "CardDescription";
         }
         protected override GameObject GetCardArt()
         {
-            return CrimmyCards.SawBlockArt;
+            return null;
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Uncommon;
+            return CardInfo.Rarity.Common;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -104,8 +86,8 @@ namespace CrimmyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Saw block",
-                    amount = "1",
+                    stat = "Effect",
+                    amount = "No",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

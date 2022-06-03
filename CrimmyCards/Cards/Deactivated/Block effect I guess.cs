@@ -9,12 +9,24 @@ using UnityEngine;
 
 namespace CrimmyCards.Cards
 {
-    class Carrot : CustomCard
+    class Block_effect_I_guess : CustomCard
     {
+        System.Random random = new System.Random();
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            gun.spread *= 0f;
-            gun.projectileSpeed = 1.5f;
+            int rand = random.Next(3);
+            switch (rand)
+            {
+                case 0:
+                    block.additionalBlocks += 1;
+                    break;
+                case 1:
+                    block.autoBlock = true;
+                    break;
+                case 2:
+                    block.cdAdd -= 0.25f;
+                    break;
+            }
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -28,15 +40,15 @@ namespace CrimmyCards.Cards
 
         protected override string GetTitle()
         {
-            return "Carrot";
+            return "Block effect I guess";
         }
         protected override string GetDescription()
         {
-            return "carrots improve your eyesight.";
+            return "You get something block related randomly every round";
         }
         protected override GameObject GetCardArt()
         {
-            return CrimmyCards.CarrotArt;
+            return null;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -49,15 +61,8 @@ namespace CrimmyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Spread",
-                    amount = "No",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Projectile Speed",
-                    amount = "+50%",
+                    stat = "+1, true, or -0.25",
+                    amount = "Block Effect",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

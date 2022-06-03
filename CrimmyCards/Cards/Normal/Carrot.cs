@@ -9,28 +9,20 @@ using UnityEngine;
 
 namespace CrimmyCards.Cards
 {
-    class Block_effect_I_guess : CustomCard
+    class Carrot : CustomCard
     {
-        System.Random random = new System.Random();
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            int rand = random.Next(3);
-            switch (rand)
-            {
-                case 0:
-                    block.additionalBlocks += 1;
-                    break;
-                case 1:
-                    block.autoBlock = true;
-                    break;
-                case 2:
-                    block.cdAdd -= 0.25f;
-                    break;
-            }
+            //gun.spread = 0;
+            //gun.evenSpread = 0;
+            gun.projectileSpeed = 1.5f;
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            gun.spread = 0f;
+            //gun.gravity = 0f;
+            //gun.evenSpread = 0;
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -40,15 +32,15 @@ namespace CrimmyCards.Cards
 
         protected override string GetTitle()
         {
-            return "Block effect I guess";
+            return "Carrot";
         }
         protected override string GetDescription()
         {
-            return "You get something block related";
+            return "Carrots improve your eyesight.";
         }
         protected override GameObject GetCardArt()
         {
-            return null;
+            return CrimmyCards.CarrotArt;
         }
         protected override CardInfo.Rarity GetRarity()
         {
@@ -61,15 +53,22 @@ namespace CrimmyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "+1, true, or -0.25",
-                    amount = "Block Effect",
+                    stat = "Spread",
+                    amount = "No",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Projectile Speed",
+                    amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.NatureBrown;
         }
         public override string GetModName()
         {

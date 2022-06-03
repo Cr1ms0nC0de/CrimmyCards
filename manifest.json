@@ -1,10 +1,10 @@
 {
 	"name":"CrimmyCards",
 	"author_name":"nwilki",
-    "version_number":"0.3.2",
+    "version_number":"0.5.0",
 	"website_url":"https://github.com/Cr1ms0nC0de/CrimmyCards",
 	"displayName":"Crimmy's Cards",
-	"description":"Adds 6 cards",
+	"description":"Adds 14 cards, 6 currently disabled",
 	"dependencies": [
 	    "willis81808-UnboundLib-2.10.2",
 		"willis81808-MMHook-1.0.0",
@@ -12,6 +12,8 @@
 		"Pykess-CardChoiceSpawnUniqueCardPatch-0.1.7",
 		"Pykess-ModdingUtils-0.2.6",
 		"Pykess-TemporaryStatsPatch-0.0.0",
-		"willuwontu-BlockForcePatch-1.0.1"
+		"willuwontu-BlockForcePatch-1.0.1",
+		"Pykess-LegRaycastersPatch-0.0.0",
+		"Root-RarityLib-1.0.8" 
 	]
 }
