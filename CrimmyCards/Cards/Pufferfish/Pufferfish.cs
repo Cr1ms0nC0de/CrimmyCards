@@ -11,34 +11,44 @@ using ModdingUtils.MonoBehaviours;
 using TemporaryStatsPatch;
 using CrimmyCards.MonoBehaviours;
 using CrimmyCards.TempEffects;
-namespace CrimmyCards.Cards
+using ClassesManagerReborn.Util;
+using CrimmyCards.Extensions;
+using CrimmyCards.Utils;
+
+namespace CrimmyCards.Cards.Pufferfish
 {
     class Pufferfish : CustomCard
     {
         //private static MonoBehaviours.Puff puff_effect = new Puff();
         //PufferfishArt pufferfish;
+        private float thorns_damage = 0.25f;
+        internal static CardInfo Card = null;
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            statModifiers.health = 3.0f;
+            gameObject.GetOrAddComponent<ClassNameMono>();
+
+            //statModifiers.health = 3.0f;
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            HealthBasedEffect effect = player.gameObject.GetOrAddComponent<HealthBasedEffect>();
-            //pufferfish = player.gameObject.AddComponent<PufferfishArt>();
-            effect.characterStatModifiersModifier.sizeMultiplier_mult = 1.2f;
-            effect.characterStatModifiersModifier.gravity_mult = 1.5f;
-            effect.blockModifier.additionalBlocks_add = 1;
-            effect.blockModifier.cdAdd_add -= 0.25f;
-            effect.SetPercThresholdMax(0.999f);
-            //puff_effect = player.gameObject.AddComponent<MonoBehaviours.Puff>();
+            player.gameObject.GetOrAddComponent<Thorns>();
+            characterStats.GetAdditionalData().damage_percent += thorns_damage;   
+
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            HealthBasedEffect effect = player.gameObject.GetOrAddComponent<HealthBasedEffect>();
-            UnityEngine.GameObject.Destroy(effect);
+            if (player.gameObject.GetComponent<Thorns>() != null)
+            {
+                //var thorns_damage = player.gameObject.GetComponent<Thorns>();
+                characterStats.GetAdditionalData().damage_percent -= thorns_damage;
+                if (characterStats.GetAdditionalData().damage_percent <= 0)
+                {
+                    Destroy(player.gameObject.GetComponentInChildren<Thorns>());
+                }
+            }
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been removed from player {player.playerID}.");
         }
 
@@ -48,7 +58,7 @@ namespace CrimmyCards.Cards
         }
         protected override string GetDescription()
         {
-            return "You puff up when damaged. Stats only apply when damaged, excluding health";
+            return "Pufferfish";
         }
         protected override GameObject GetCardArt()
         {
@@ -65,46 +75,10 @@ namespace CrimmyCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Health",
-                    amount = "+200%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Blocks",
-                    amount = "+1",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Block Cooldown",
-                    amount = "-0.25s",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Size",
-                    amount = "+50%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Gravity",
-                    amount = "+20%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Movement Speed",
-                    amount = "-20%",
+                    stat = "Thorns",
+                    amount = "+25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-                
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
@@ -114,6 +88,10 @@ namespace CrimmyCards.Cards
         public override string GetModName()
         {
             return CrimmyCards.ModInitials;
+        }
+        public override void Callback()
+        {
+            gameObject.GetOrAddComponent<ClassNameMono>();
         }
     }
 }

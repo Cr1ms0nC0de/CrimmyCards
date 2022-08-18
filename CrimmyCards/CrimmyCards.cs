@@ -8,6 +8,10 @@ using UnityEngine;
 using CrimmyCards.MonoBehaviours;
 using RarityLib.Utils;
 using RarityLib;
+using CrimmyCards.Cards.Testing;
+using CrimmyCards.Cards.Pufferfish;
+using System.Collections;
+using UnboundLib.GameModes;
 
 namespace CrimmyCards
 {
@@ -24,8 +28,13 @@ namespace CrimmyCards
     {
         private const string ModId = "com.nwilki.rounds.CrimmyCards";
         private const string ModName = "CrimmyCards";
-        public const string Version = "0.5.0"; // What version are we on (major.minor.patch)?
+        public const string Version = "0.5.1"; // What version are we on (major.minor.patch)?
         public const string ModInitials = "CRMY";
+        public const string TestingInitials = "Testing";
+
+        public static CardCategory TestCardCategory;
+
+        private bool debug = true;
         //public GameObject betterSawObj;
 
         public static CrimmyCards instance { get; private set; }
@@ -57,7 +66,7 @@ namespace CrimmyCards
             //Cards
 
             instance = this;
-            CustomCard.BuildCard<Pufferfish>();
+            //CustomCard.BuildCard<Pufferfish>();
             CustomCard.BuildCard<Carrot>();
             //CustomCard.BuildCard<Block_effect_I_guess>();
             //CustomCard.BuildCard<Gun_Effect_I_guess>();
@@ -76,8 +85,55 @@ namespace CrimmyCards
             CustomCard.BuildCard<BattleOfGods>();
             CustomCard.BuildCard<SwordOfTheCosmos>();
             CustomCard.BuildCard<BattleOfAnts>();
+            //CustomCard.BuildCard<Pufferfish>();
+            CustomCard.BuildCard<Pufferfish>((card) => Pufferfish.Card = card);
+            CustomCard.BuildCard<poisonousSpikes>((card) => poisonousSpikes.Card = card);
             //CustomCard.BuildCard<InstantTransmission>();
+
+            if (debug)
+            {
+                // Build Testing Cards
+                TestCardCategory = CustomCardCategories.instance.CardCategory("Testing Cards");
+
+                CustomCard.BuildCard<RemoveAll>();
+                CustomCard.BuildCard<RemoveTestingCards>();
+                CustomCard.BuildCard<RemoveLast>();
+                CustomCard.BuildCard<RemoveFirst>();
+
+                CustomCard.BuildCard<DoRoundStart>();
+                CustomCard.BuildCard<DoGameStart>();
+                CustomCard.BuildCard<DoBattleStart>();
+                CustomCard.BuildCard<DoPointStart>();
+                CustomCard.BuildCard<DoPickStart>();
+                CustomCard.BuildCard<DoPlayerPickStart>();
+                CustomCard.BuildCard<DoRoundEnd>();
+                CustomCard.BuildCard<DoGameEnd>();
+                CustomCard.BuildCard<DoPointEnd>();
+                CustomCard.BuildCard<DoPickEnd>();
+                CustomCard.BuildCard<DoPlayerPickEnd>();
+                CustomCard.BuildCard<DoInitStart>();
+                CustomCard.BuildCard<DoInitEnd>();
+                CustomCard.BuildCard<SimulateRoundStart>();
+                CustomCard.BuildCard<SimulateRoundEnd>();
+                CustomCard.BuildCard<SimulateRound>();
+                CustomCard.BuildCard<SimulatePickPhase>();
+
+                //CustomCard.BuildCard<AddPointToTeam>();
+                //CustomCard.BuildCard<AddRoundToTeam>();
+                //CustomCard.BuildCard<ResetTeamScores>(); 
+            }
         }
+        public void TriggerGameModeHook(string key)
+        {
+            StartCoroutine(ITriggerGameModeHook(key));
+        }
+
+        private IEnumerator ITriggerGameModeHook(string key)
+        {
+            yield return GameModeManager.TriggerHook(key);
+            yield break;
+        }
+
         internal static AssetBundle Bundle = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("bundle", typeof(CrimmyCards).Assembly);
 
         public static GameObject PufferfishArt = Bundle.LoadAsset<GameObject>("C_Pufferfish");

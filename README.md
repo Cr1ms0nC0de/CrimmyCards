@@ -22,6 +22,9 @@ Disabled
 - Almost invisible saw block (Uncommon)
 
 ----
+## v 0.5.1
+- Fixed Sword of The Cosmos
+----
 ## v 0.5.0
 - Buffs Bullet Hell
 - moved the cards from Chaos Cards back to main mod

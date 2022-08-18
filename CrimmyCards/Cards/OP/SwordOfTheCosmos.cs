@@ -25,13 +25,13 @@ namespace CrimmyCards.Cards
         {
             foreach (Player otherPlayer in PlayerManager.instance.players)
             {
-                if (otherPlayer.playerID != player.playerID)
-                {
+                //if (otherPlayer.playerID != player.playerID)
+                //{
                     otherPlayer.gameObject.GetOrAddComponent<OPMono.CosmosMono>();
-                }
+                //}
             }
 
-            gun.damage *= 10.0f;
+            //gun.damage *= 10.0f;
             UnityEngine.Debug.Log($"[{CrimmyCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)

@@ -40,6 +40,14 @@ namespace CrimmyCards.MonoBehaviours
                             sizeMultiplier *= 0.67f;
                         }
                     }
+                    else if(otherPlayer.playerID == player.playerID)
+                    {
+                        foreach (var card in otherPlayer.data.currentCards.Where((cardInfo) => cardInfo.cardName.ToLower() == "Battle of The Gods".ToLower()))
+                        {
+                            healthMultiplier *= 15f;
+                            sizeMultiplier *= 0.57f;
+                        }
+                    }
                 }
 
                 this.characterDataModifier.health_mult = healthMultiplier;
@@ -86,9 +94,18 @@ namespace CrimmyCards.MonoBehaviours
                             damageMultiplier *= 5.0f;
                         }
                     }
+                    else if (otherPlayer.playerID == player.playerID)
+                    {
+                        foreach (var card in otherPlayer.data.currentCards.Where((cardInfo) => cardInfo.cardName.ToLower() == "Sword of The Cosmos".ToLower()))
+                        {
+                            damageMultiplier *= 10.0f;
+                        }
+                    }
                 }
-
-                this.data.weaponHandler.gun.bulletDamageMultiplier = damageMultiplier;
+                //player2.GetComponent<WeaponHandler>().gun.damage *= 0.85f;
+                //this.data.weaponHandler.gun.bulletDamageMultiplier = damageMultiplier;
+                //this.player.GetComponent<WeaponHandler>().gun.bulletDamageMultiplier = damageMultiplier;
+                this.gunStatModifier.bulletDamageMultiplier_mult = damageMultiplier;
                 this.ApplyModifiers();
             }
 
@@ -130,6 +147,14 @@ namespace CrimmyCards.MonoBehaviours
                         {
                             healthMultiplier *= 0.5f;
                             sizeMultiplier *= 0.75f;
+                        }
+                    }
+                    else if (otherPlayer.playerID == player.playerID)
+                    {
+                        foreach (var card in otherPlayer.data.currentCards.Where((cardInfo) => cardInfo.cardName.ToLower() == "Battle of The Ants".ToLower()))
+                        {
+                            healthMultiplier *= 0.75f;
+                            sizeMultiplier *= 0.5f;
                         }
                     }
                 }
